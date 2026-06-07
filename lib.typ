@@ -26,7 +26,7 @@
   frame: true,
   frame-stroke: 0.2pt + black,
   double-page: true,
-  mono-font: ("Cascadia Code", "LXGW WenKai Mono GB"),
+  mono-font: ("JetBrains Mono", "LXGW WenKai Mono GB"),
   mono-font-size: 13pt,
   title-font: ("Times New Roman", "KaiTi"),
   title-underline: true,
