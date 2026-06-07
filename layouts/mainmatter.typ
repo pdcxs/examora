@@ -25,19 +25,22 @@
   set text(font: font, size: font-size)
   show raw: it => text(font: mono-font, size: mono-font-size, it)
   show: show-cn-fakebold
-
   if only-show-answer {
-    return it
+    return [
+      #set underline(offset: 1.5pt, stroke: 1pt)
+      #set par(justify: true)
+      #it
+    ]
   }
+
+  set underline(offset: 1.5pt, stroke: 1pt)
+  set par(justify: true)
 
   set page(
     margin: if double-page { margin } else {
       (top: margin.top, bottom: margin.bottom, left: margin.inside, right: margin.outside)
     },
   )
-
-  set underline(offset: 1.5pt, stroke: 1pt)
-  set par(justify: true)
 
   set page(
     header: context {
