@@ -36,8 +36,8 @@
     seed = if type == "" { 1 } else { type.codepoints().map(c => str.to-unicode(c)).sum() }
   }
 
-  let bigQuestionCounter = counter("bigQuestion")
-  let questionCounter = counter("question")
+  let big-question-counter = counter("bigQuestion")
+  let question-counter = counter("question")
 
   return (
     mainmatter: (..args) => mainmatter(
@@ -65,23 +65,23 @@
     ),
     score-table: () => {
       align(center)[#context table(
-          columns: (1fr,) * (bigQuestionCounter.final().first() + 2),
+          columns: (1fr,) * (big-question-counter.final().first() + 2),
           inset: 0.6em,
           align: center,
-          [题号], ..(range(1, bigQuestionCounter.final().first() + 1).map(int-to-cn-num)), [总分],
+          [题号], ..(range(1, big-question-counter.final().first() + 1).map(int-to-cn-num)), [总分],
           [得分]
         )
       ]
     },
-    questionHeader: desc => {
-      bigQuestionCounter.step()
+    question-header: desc => {
+      big-question-counter.step()
       context block(breakable: false)[
         #table(
           columns: (auto, auto),
           align: (center, left + horizon),
           table.cell(inset: 0.35cm, [得分]),
-          table.cell(rowspan: 2, inset: 0.8cm, strong[#int-to-cn-num(bigQuestionCounter.get().first())、#desc]),
-          questionCounter.update(1),
+          table.cell(rowspan: 2, inset: 0.8cm, strong[#int-to-cn-num(big-question-counter.get().first())、#desc]),
+          question-counter.update(1),
         )]
     },
     choice-question: questions => choice-question(
@@ -120,7 +120,7 @@
       show-answer: show-answer,
       answer-color: answer-color,
     ) => context {
-      enum.item(questionCounter.get().first())[
+      enum.item(question-counter.get().first())[
         #question
       ]
 
@@ -129,11 +129,10 @@
       if show-answer {
         set text(fill: answer-color)
         box(inset: 0pt, outset: 0pt, height: spacing, width: 100%)[#answer]
-
       } else {
         box(inset: 0pt, outset: 0pt, height: spacing, width: 100%)[]
       }
-      questionCounter.step()
+      question-counter.step()
     },
   )
 }

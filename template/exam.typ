@@ -3,7 +3,7 @@
 #let (
   mainmatter,
   title,
-  questionHeader,
+  question-header,
   score-table,
   choice-question,
   fill-question,
@@ -51,7 +51,7 @@
 
 #score-table()
 
-#questionHeader[选择题（每空2分，共30分）]
+#question-header[选择题（每空2分，共30分）]
 
 #choice-question((
   ("以下内容哪个是真的？", ("地球是方的", ("地球是圆的", true), "月亮自己发光", "太阳比地球小")),
@@ -189,7 +189,7 @@
 ))
 
 
-#questionHeader[填空题（每空1分，共10分）]
+#question-header[填空题（每空1分，共10分）]
 
 #fill-question(
   (
@@ -208,7 +208,7 @@
   leading: 1.5em,
 )
 
-#questionHeader[判断题（每题1分，共10分）]
+#question-header[判断题（每题1分，共10分）]
 
 #true-false-question(
   (
@@ -229,7 +229,7 @@
 
 #pagebreak()
 
-#questionHeader[简答题（每题5分，共10分）]
+#question-header[简答题（每题5分，共10分）]
 
 #question(
   question: [请谈谈你对于函数式编程的理解。],
@@ -243,7 +243,7 @@
 #question(question: [请谈谈你对于`C++`中移动语义的理解。])
 #pagebreak()
 
-#questionHeader[程序阅读题（每题10分，共20分）]
+#question-header[程序阅读题（每题10分，共20分）]
 #question(
   question: [阅读以下程序，解释并说明其输出结果。],
   body: [
@@ -324,7 +324,7 @@
 
 #pagebreak()
 
-#questionHeader[程序设计题（每题10分，共20分）]
+#question-header[程序设计题（每题10分，共20分）]
 
 #question(question: [设计一个自己的 `unique_ptr`.])
 
