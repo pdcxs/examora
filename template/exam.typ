@@ -9,6 +9,7 @@
   fill-question,
   true-false-question,
   question,
+  new-page,
 ) = documentclass(
   info: (
     school: "布鲁斯特大学",
@@ -30,12 +31,14 @@
   font-size: 13pt,
   type: "A卷",
   method: "闭卷",
+  continue-number: true,
   // random: false,
   // frame: false,
   // choice-question-breakable: false,
   // frame-stroke: (thickness: 0.5pt, dash: "dashed", paint: black),
   // double-page: false,
   // show-answer: true,
+  // only-show-answer: true,
   // seed: 1,
   // answer-color: maroon,
   // mono-font: ("Cascadia Code", "LXGW WenKai Mono GB"),
@@ -227,7 +230,7 @@
   leading: 1em,
 )
 
-#pagebreak()
+#new-page()
 
 #question-header[简答题（每题5分，共10分）]
 
@@ -241,7 +244,7 @@
 )
 
 #question(question: [请谈谈你对于`C++`中移动语义的理解。])
-#pagebreak()
+#new-page()
 
 #question-header[程序阅读题（每题10分，共20分）]
 #question(
@@ -261,7 +264,7 @@
   ],
 )
 
-#pagebreak()
+#new-page()
 
 #question(
   question: [已知在$triangle A B C$中，$A + B = 3C, 2 sin(A-C) = sin B$],
@@ -322,12 +325,12 @@
   ],
 )
 
-#pagebreak()
+#new-page()
 
 #question-header[程序设计题（每题10分，共20分）]
 
 #question(question: [设计一个自己的 `unique_ptr`.])
 
-#pagebreak()
+#new-page()
 
 #question(question: [用自己的 `unique_ptr` 实现一个链表。])

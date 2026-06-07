@@ -6,6 +6,7 @@
   method: "闭卷",
   title-underline: true,
   info-size: 0.85em,
+  only-show-answer: false,
 ) = context {
   let info = (
     (
@@ -21,12 +22,18 @@
       + info
   )
 
-  align(right)[考试方式：#underline(method)]
+  if not only-show-answer {
+    align(right)[考试方式：#underline(method)]
+  }
 
   text(font: font, size: font-size, weight: "bold")[
     #align(center)[
-      #info.school #if title-underline {underline(info.subject + type)} else {info.subject + type} 试卷
+      #info.school #if title-underline { underline(info.subject + type) } else { info.subject + type } 试卷
     ]]
+
+  if only-show-answer {
+    return
+  }
 
   set text(size: info-size)
 

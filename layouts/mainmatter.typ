@@ -18,17 +18,24 @@
   double-page: true,
   frame-stroke: (0.4pt + black),
   student-info: ("班级", "姓名", "学号"),
+  only-show-answer: false,
   ..args,
   it,
 ) = {
   set text(font: font, size: font-size)
   show raw: it => text(font: mono-font, size: mono-font-size, it)
   show: show-cn-fakebold
+
+  if only-show-answer {
+    return it
+  }
+
   set page(
     margin: if double-page { margin } else {
       (top: margin.top, bottom: margin.bottom, left: margin.inside, right: margin.outside)
     },
   )
+
   set underline(offset: 1.5pt, stroke: 1pt)
   set par(justify: true)
 
@@ -56,7 +63,7 @@
                     #place(dy: -0.3em, line(start: (5%, 0%), end: (95%, 0%), stroke: (dash: "dash-dotted")))
                     #place(dx: 4cm, dy: -0.6em, grid(
                       columns: (1fr,) * 3,
-                      [#box(fill: white)[密]], [#box(fill: white)[封]], [#box(fill: white)[线]]
+                      [#box(fill: white)[密]], [#box(fill: white)[封]], [#box(fill: white)[线]],
                     ))
                   ]
                 ]],
@@ -78,11 +85,14 @@
       place(
         dx: if calc.odd(p) or not double-page { margin.inside - 1em } else { margin.outside / 2 },
         dy: 2.5cm,
-        rect(width: 100% - margin.inside - margin.outside + 4em, height: 100% - margin.bottom - margin.top + 1em, stroke: frame-stroke),
+        rect(
+          width: 100% - margin.inside - margin.outside + 4em,
+          height: 100% - margin.bottom - margin.top + 1em,
+          stroke: frame-stroke,
+        ),
       )
     },
   )
-
 
   it
 }

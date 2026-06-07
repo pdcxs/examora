@@ -19,6 +19,8 @@
   font: ("Times New Roman", "KaiTi"),
   font-size: 13pt,
   show-answer: false,
+  only-show-answer: false,
+  continue-number: false,
   answer-color: red,
   random: true,
   frame: true,
@@ -36,7 +38,7 @@
     seed = if type == "" { 1 } else { type.codepoints().map(c => str.to-unicode(c)).sum() }
   }
 
-  let big-question-counter = counter("bigQuestion")
+  let big-question-counter = counter("big-question")
   let question-counter = counter("question")
 
   return (
@@ -53,6 +55,7 @@
       mono-font: mono-font,
       double-page: double-page,
       student-info: student-info,
+      only-show-answer: only-show-answer,
       ..args,
     ),
     title: (..args) => title(
@@ -62,27 +65,40 @@
       type: type,
       method: method,
       title-underline: title-underline,
+      only-show-answer: only-show-answer,
     ),
     score-table: () => {
-      align(center)[#context table(
-          columns: (1fr,) * (big-question-counter.final().first() + 2),
-          inset: 0.6em,
-          align: center,
-          [题号], ..(range(1, big-question-counter.final().first() + 1).map(int-to-cn-num)), [总分],
-          [得分]
-        )
-      ]
+      if not only-show-answer {
+        align(center)[#context table(
+            columns: (1fr,) * (big-question-counter.final().first() + 2),
+            inset: 0.6em,
+            align: center,
+            [题号], ..(range(1, big-question-counter.final().first() + 1).map(int-to-cn-num)), [总分],
+            [得分]
+          )
+        ]
+      }
     },
     question-header: desc => {
       big-question-counter.step()
-      context block(breakable: false)[
-        #table(
-          columns: (auto, auto),
-          align: (center, left + horizon),
-          table.cell(inset: 0.35cm, [得分]),
-          table.cell(rowspan: 2, inset: 0.8cm, strong[#int-to-cn-num(big-question-counter.get().first())、#desc]),
-          question-counter.update(1),
-        )]
+      context if not continue-number or question-counter.get().first() == 0 {
+        question-counter.update(1)
+      }
+      if not only-show-answer {
+        context block(breakable: false)[
+          #table(
+            columns: (auto, auto),
+            align: (center, left + horizon),
+            table.cell(inset: 0.35cm, [得分]),
+            table.cell(rowspan: 2, inset: 0.8cm, strong[#int-to-cn-num(big-question-counter.get().first())、#desc]),
+          )]
+      } else {
+        context {
+          [
+            #int-to-cn-num(big-question-counter.get().first())、#desc
+          ]
+        }
+      }
     },
     choice-question: questions => choice-question(
       seed: seed,
@@ -93,6 +109,8 @@
       answer-color: answer-color,
       font-size: font-size,
       breakable: choice-question-breakable,
+      only-show-answer: only-show-answer,
+      continue-number: continue-number,
     ),
     fill-question: (questions, ..args) => fill-question(
       seed: seed,
@@ -101,6 +119,8 @@
       font-size: font-size,
       show-answer: show-answer,
       answer-color: answer-color,
+      only-show-answer: only-show-answer,
+      continue-number: continue-number,
       ..args,
     ),
     true-false-question: (questions, ..args) => true-false-question(
@@ -110,6 +130,8 @@
       font-size: font-size,
       show-answer: show-answer,
       answer-color: answer-color,
+      only-show-answer: only-show-answer,
+      continue-number: continue-number,
       ..args,
     ),
     question: (
@@ -121,8 +143,20 @@
       answer-color: answer-color,
     ) => context {
       enum.item(question-counter.get().first())[
-        #question
+        #if not only-show-answer {
+          question
+        } else {
+          if answer == [] {
+            "(略)"
+          } else {
+            answer
+          }
+        }
       ]
+
+      question-counter.step()
+
+      if only-show-answer { return }
 
       body
 
@@ -132,7 +166,11 @@
       } else {
         box(inset: 0pt, outset: 0pt, height: spacing, width: 100%)[]
       }
-      question-counter.step()
+    },
+    new-page: () => {
+      if not only-show-answer {
+        pagebreak()
+      }
     },
   )
 }
