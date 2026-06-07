@@ -13,12 +13,16 @@
 ) = documentclass(
   info: (
     school: "布鲁斯特大学",
+    // school: "MIT",
     subject: "高等数学",
+    // subject: "Advanced Mathematical",
     major: "XX专业",
+    // major: "Computer Science",
     // class: "勇往直前班",
     // time: [10:00--12:00],
     date: datetime(year: 2025, day: 20, month: 6),
     duration: [120分钟],
+    // duration: [120 min],
     // columns: 2,
   ),
   margin: (
@@ -28,9 +32,12 @@
     inside: 3.2cm,
   ),
   student-info: ("学院", "专业", "班级", "姓名", "学号"),
+  // student-info: ("School", "Major", "Class", "Name", "ID"),
   font-size: 13pt,
   type: "A卷",
+  // type: " A",
   method: "闭卷",
+  // method: "Closed Book",
   continue-number: true,
   // random: false,
   // frame: false,
@@ -49,12 +56,14 @@
 )
 
 #show: mainmatter
+#set text(lang: "zh") // 如果需要英文，注释此行
 
 #title()
 
 #score-table()
 
 #question-header[选择题（每空2分，共30分）]
+// #question-header[Choice Question (2 points each, 30 points total)]
 
 #choice-question(
   (
@@ -199,6 +208,8 @@
 
 #question-header[填空题（每空1分，共10分）]
 
+// #question-header[Filling Question (1 point each, 10 points total)]
+
 #fill-question(
   (
     ([`Java`中，控制循环的关键字包括：], ([`break`], 3cm), [、], ([`continue`], 3cm), [和], ([`goto`], 3cm), [。]),
@@ -217,6 +228,7 @@
 )
 
 #question-header[判断题（每题1分，共10分）]
+// #question-header[True or False Question (1 point each, 10 points total)]
 
 #true-false-question(
   (
@@ -238,6 +250,7 @@
 #new-page()
 
 #question-header[简答题（每题5分，共10分）]
+// #question-header[Short Answer Question (5 points each, 10 points total)]
 
 #question(
   question: [请谈谈你对于函数式编程的理解。],
@@ -252,10 +265,13 @@
 #new-page()
 
 #question-header[程序阅读题（每题10分，共20分）]
+// #question-header[Program Reading Question (10 points each, 20 points total)]
 #question(
   question: [阅读以下程序，解释并说明其输出结果。],
   body: [
-    ```
+    #import "@preview/codly:1.3.0": codly-init
+    #show: codly-init
+    ```cpp
     #include <iostream>
     int main() {
       std::cout << "Hello, world!" << std::endl;
@@ -279,6 +295,7 @@
       columns: (1fr, 1fr),
       align: (left, right),
       [
+        #set enum(numbering: "a.")
         + 求 $sin A$;
         + 设 $A B = 5$, 求 $A B$ 边上的高.
       ],
@@ -333,6 +350,7 @@
 #new-page()
 
 #question-header[程序设计题（每题10分，共20分）]
+// #question-header[Program Writing Question (10 points each, 20 points total)]
 
 #question(question: [设计一个自己的 `unique_ptr`.])
 

@@ -59,15 +59,26 @@
                     ..student-info.map(field => field + ": " + box(stroke: (bottom: 0.5pt), width: 50%))
                   )
 
-                  #text(size: 8pt)[（密封线外不要写姓名、学号、班级、密封线内不准答题，违者按零分计）]
+                  #text(size: 8pt)[#if text.lang == "zh" {
+                    [（密封线外不要写姓名、学号、班级、密封线内不准答题，违者按零分计）]
+                  } else {
+                    [(Do not write your name, student ID, or class outside the seal line. Do not write any answers inside the seal line. Violators will receive a score of zero.)]
+                  }]
 
                   #box(stroke: none, width: 100%)[
                     #set text(size: 10pt)
                     #place(dy: -0.3em, line(start: (5%, 0%), end: (95%, 0%), stroke: (dash: "dash-dotted")))
-                    #place(dx: 4cm, dy: -0.6em, grid(
-                      columns: (1fr,) * 3,
-                      [#box(fill: white)[密]], [#box(fill: white)[封]], [#box(fill: white)[线]],
-                    ))
+                    #if text.lang == "zh" {
+                      place(dx: 4cm, dy: -0.6em, grid(
+                        columns: (1fr,) * 3,
+                        [#box(fill: white)[密]], [#box(fill: white)[封]], [#box(fill: white)[线]],
+                      ))
+                    } else {
+                      place(dx: 6cm, dy: -0.6em, grid(
+                        columns: (1fr,) * 2,
+                        [#box(fill: white)[Seal]], [#box(fill: white)[Line]],
+                      ))
+                    }
                   ]
                 ]],
             ),
@@ -77,8 +88,14 @@
     },
 
     numbering: (..nums) => {
-      let numArr = nums.pos().map(str)
-      let pg = [#type 第 #numArr.at(0) 页，共 #numArr.at(1) 页]
+      let num-arr = nums.pos().map(str)
+      let pg = if text.lang == "zh" { [#type 第 #num-arr.at(0) 页，共 #num-arr.at(1) 页] } else {
+        if type != "" {
+          [Paper #type: #num-arr.at(0)/#num-arr.at(1)]
+        } else {
+          [#num-arr.at(0)/#num-arr.at(1)]
+        }
+      }
       let m = measure(pg)
       place(dx: 50% - m.width / 2, dy: -margin.bottom / 2 + m.height + 1em, text(size: 11pt, pg))
     },

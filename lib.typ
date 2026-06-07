@@ -41,6 +41,14 @@
   let big-question-counter = counter("big-question")
   let question-counter = counter("question")
 
+  let get-num = n => {
+    if text.lang == "zh" {
+      return int-to-cn-num(n)
+    } else {
+      return numbering("I", n)
+    }
+  }
+
   return (
     mainmatter: (..args) => mainmatter(
       margin: margin,
@@ -71,10 +79,12 @@
       if not only-show-answer {
         align(center)[#context table(
             columns: (1fr,) * (big-question-counter.final().first() + 2),
-            inset: 0.6em,
+            inset: if text.lang == "zh" { 0.6em } else { 0.3em },
             align: center,
-            [题号], ..(range(1, big-question-counter.final().first() + 1).map(int-to-cn-num)), [总分],
-            [得分]
+            if text.lang == "zh" { [题号] } else { [Question] }, ..(
+              range(1, big-question-counter.final().first() + 1).map(get-num)
+            ), if text.lang == "zh" { [总分] } else { [Total] },
+            if text.lang == "zh" { [得分] } else { [Score] }
           )
         ]
       }
@@ -89,13 +99,15 @@
           #table(
             columns: (auto, auto),
             align: (center, left + horizon),
-            table.cell(inset: 0.35cm, [得分]),
-            table.cell(rowspan: 2, inset: 0.8cm, strong[#int-to-cn-num(big-question-counter.get().first())、#desc]),
+            table.cell(inset: 0.35cm, if text.lang == "zh" { [得分] } else { [Score] }),
+            table.cell(rowspan: 2, inset: 0.8cm, strong[#get-num(big-question-counter.get().first())#if (
+                text.lang == "zh"
+              ) { "、" } else { ". " }#desc]),
           )]
       } else {
         context {
           [
-            #int-to-cn-num(big-question-counter.get().first())、#desc
+            #get-num(big-question-counter.get().first())、#desc
           ]
         }
       }
@@ -148,7 +160,7 @@
           question
         } else {
           if answer == [] {
-            "(略)"
+            if text.lang == "zh" { "(略)" } else { "(Omitted)" }
           } else {
             answer
           }

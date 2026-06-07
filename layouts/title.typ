@@ -23,12 +23,18 @@
   )
 
   if not only-show-answer {
-    align(right)[考试方式：#underline(method)]
+    let method-prompt = if text.lang == "zh" {
+      "考试方式："
+    } else {
+      "Examination Method: "
+    }
+    align(right)[#method-prompt#underline(method)]
   }
 
   text(font: font, size: font-size, weight: "bold")[
     #align(center)[
-      #info.school #if title-underline { underline(info.subject + type) } else { info.subject + type } 试卷
+      #info.school #if title-underline { underline(info.subject + type) } else { info.subject + type }
+      #if text.lang == "zh" { [试卷] } else { [Examination] }
     ]]
 
   if only-show-answer {
@@ -39,13 +45,19 @@
 
   let fields = ()
   if info.major != "" {
-    fields.push([适用专业：#underline(info.major)])
+    fields.push([#if text.lang == "zh" { [适用专业：] } else { [Major: ] }#underline(info.major)])
   }
   if info.class != "" {
-    fields.push([适用班级：#underline(info.class)])
+    fields.push([#if text.lang == "zh" { [适用班级：] } else { [Class: ] }#underline(info.class)])
   }
-  fields.push([考试日期：#underline(info.date.display() + if info.time == "" { "" } else { " " + info.time })])
-  fields.push([时间：#underline(info.duration + " 共" + [#counter(page).final().first()] + "页")])
+  fields.push([#if text.lang == "zh" { [考试日期：] } else { [Examination Date: ] }#underline(
+      info.date.display() + if info.time == "" { "" } else { " " + info.time },
+    )])
+  if text.lang == "zh" {
+    fields.push([时间：#underline(info.duration + " 共" + [#counter(page).final().first()] + "页")])
+  } else {
+    fields.push([Time: #underline(info.duration + " | Pages: " + [#counter(page).final().first()])])
+  }
 
   if info.columns > 0 {
     grid(

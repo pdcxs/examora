@@ -39,7 +39,7 @@
     for qt in questions {
       set enum(
         numbering: it => if show-answer {
-          [#box(width: 3em, "( " + if questions.at(it - 1).at(1) { $checkmark$ } else { $crossmark$ } + "  ) ")#it.]
+          [#box(width: 3em, "( " + if questions.at(i - 1).at(1) { $checkmark$ } else { $crossmark$ } + "  ) ")#it.]
         } else {
           [#box(width: 3em, "(      ) ")#it.]
         },

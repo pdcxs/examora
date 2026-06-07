@@ -56,7 +56,7 @@
 
   let row-num = calc.ceil(questions.len() / 10) * 2
 
-  if not only-show-answer {
+  context if not only-show-answer {
     if show-score-table {
       align(
         center,
@@ -69,13 +69,13 @@
             let answer-num = i - 6 * row - 5
             let question-num = i - row * 6
             if calc.rem(i, 22) == 0 {
-              [题号]
+              if text.lang == "zh" { [题号] } else { [ID] }
             } else if calc.rem(row, 2) == 0 {
               if question-num <= questions.len() {
                 [#question-num]
               } else { [] }
             } else if calc.rem(i, 11) == 0 {
-              [答案]
+              if text.lang == "zh" { [答案] } else { [Ans] }
             } else if show-answer and answer-num <= questions.len() {
               [#get-answer(questions.at(answer-num - 1).at(1))]
             } else {
