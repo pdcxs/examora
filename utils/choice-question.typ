@@ -18,7 +18,16 @@
     (rng, questions) = shuffle-f(rng, questions)
 
     for i in range(questions.len()) {
-      (rng, questions.at(i).at(1)) = shuffle-f(rng, questions.at(i).at(1))
+      let qt = questions.at(i)
+      let fixed = false
+      for itm in qt {
+        if type(itm) == dictionary and "fixed" in itm and itm.at("fixed") {
+          fixed = true
+        }
+      }
+      if not fixed {
+        (rng, questions.at(i).at(1)) = shuffle-f(rng, questions.at(i).at(1))
+      }
     }
   }
 
