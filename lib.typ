@@ -100,7 +100,7 @@
         }
       }
     },
-    choice-question: questions => choice-question(
+    choice-question: (questions, ..args) => choice-question(
       seed: seed,
       random: random,
       questions: questions,
@@ -111,6 +111,7 @@
       breakable: choice-question-breakable,
       only-show-answer: only-show-answer,
       continue-number: continue-number,
+      ..args,
     ),
     fill-question: (questions, ..args) => fill-question(
       seed: seed,

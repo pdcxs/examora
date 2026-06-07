@@ -10,6 +10,8 @@
   breakable: true,
   only-show-answer: false,
   continue-number: false,
+  show-score-table: true,
+  show-fill-blank: false,
   seed: 1,
 ) = {
   set text(size: font-size)
@@ -55,32 +57,34 @@
   let row-num = calc.ceil(questions.len() / 10) * 2
 
   if not only-show-answer {
-    align(
-      center,
-      table(
-        columns: (1fr,) * 11,
-        align: center,
-        inset: 0.3em,
-        ..range(11 * row-num).map(i => {
-          let row = calc.floor(i / 11)
-          let answer-num = i - 6 * row - 5
-          let question-num = i - row * 6
-          if calc.rem(i, 22) == 0 {
-            [题号]
-          } else if calc.rem(row, 2) == 0 {
-            if question-num <= questions.len() {
-              [#question-num]
-            } else { [] }
-          } else if calc.rem(i, 11) == 0 {
-            [答案]
-          } else if show-answer and answer-num <= questions.len() {
-            [#get-answer(questions.at(answer-num - 1).at(1))]
-          } else {
-            []
-          }
-        })
-      ),
-    )
+    if show-score-table {
+      align(
+        center,
+        table(
+          columns: (1fr,) * 11,
+          align: center,
+          inset: 0.3em,
+          ..range(11 * row-num).map(i => {
+            let row = calc.floor(i / 11)
+            let answer-num = i - 6 * row - 5
+            let question-num = i - row * 6
+            if calc.rem(i, 22) == 0 {
+              [题号]
+            } else if calc.rem(row, 2) == 0 {
+              if question-num <= questions.len() {
+                [#question-num]
+              } else { [] }
+            } else if calc.rem(i, 11) == 0 {
+              [答案]
+            } else if show-answer and answer-num <= questions.len() {
+              [#get-answer(questions.at(answer-num - 1).at(1))]
+            } else {
+              []
+            }
+          })
+        ),
+      )
+    }
   }
 
   if not only-show-answer {
@@ -89,6 +93,9 @@
       let ct = [
         #enum.item(i + 1)[
           #question.at(0)
+          #if show-fill-blank {
+            [#box(baseline: -0.1em)[(#h(2em))]]
+          }
         ]
 
         #let choices = question.at(1)
