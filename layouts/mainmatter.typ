@@ -1,4 +1,4 @@
-#import "@preview/cuti:0.3.0": show-cn-fakebold
+#import "@preview/cuti:0.4.0": show-cn-fakebold
 
 #let mainmatter(
   margin: (

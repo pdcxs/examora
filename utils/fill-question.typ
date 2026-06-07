@@ -1,4 +1,4 @@
-#import "@preview/suiji:0.4.0": *
+#import "@preview/suiji:0.5.1": *
 
 #let fill-question(
   questions: ((:),),
