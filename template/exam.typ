@@ -202,6 +202,7 @@
     ),
   ),
   // show-fill-blank: true,
+  // blank-width: 2em,
   // show-score-table: false,
 )
 

@@ -12,6 +12,7 @@
   continue-number: false,
   show-score-table: true,
   show-fill-blank: false,
+  blank-width: 2em,
   seed: 1,
 ) = {
   set text(size: font-size)
@@ -94,7 +95,11 @@
         #enum.item(i + 1)[
           #question.at(0)
           #if show-fill-blank {
-            [#box(baseline: -0.1em)[(#h(2em))]]
+            if show-answer {
+              [(#box(width: blank-width)[#align(center)[#get-answer(question.at(1))]])]
+            } else {
+              [#box[(#h(blank-width))]]
+            }
           }
         ]
 

@@ -121,6 +121,7 @@ I. Multiple Choice (2 points each, 30 points total)
 - `continue-number` – continue question numbering across major sections.
 - `show-score-table` – whether to show choice table before questions.
 - `show-fill-blank` – if `true`, draws a blank parathesis after the each question (default `false`).
+- `blank-width` - the width of the blank, default is `2em`.
 
 ## Fill Question
 
