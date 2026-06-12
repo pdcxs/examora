@@ -35,7 +35,7 @@ This package provide following controlled parameters in `documentclass` function
 |        title-font         |                                    font for title                                    |            ("Times New Roman", "KaiTi")            |
 |      title-underline      |                           whether add underline for title                            |                        true                        |
 |      title-font-size      |                                 font size for title                                  |                       1.5em                        |
-
+|      show-seal-line       |                                whether show seal line                                |                        true                        |
 
 ## Question Header
 
@@ -142,7 +142,8 @@ I. Multiple Choice (2 points each, 30 points total)
 **Question tuples**  
 Each question is a sequence of content. A blank is a two‑element tuple: `(answer content, width)`, where `width` can be `3cm`, `4em`, etc. All other parts are strings or content blocks.
 
-**Global parameters**  
+**Global parameters**
+
 - `spacing` – extra vertical space between questions.
 - `leading` – paragraph leading inside a question.
 - Also supports `show-answer`, `answer-color`, `only-show-answer`, `continue-number`, etc.
@@ -254,7 +255,6 @@ For complete examples of how all these elements work together, see `template/exa
 |      title-underline      |                        是否给标题添加下划线                         |                        true                        |
 |      title-font-size      |                              标题字号                               |                       1.5em                        |
 
-
 ## 大题节
 
 每个大题节应该由 `question-header` 引入。它会自动：
@@ -359,7 +359,8 @@ For complete examples of how all these elements work together, see `template/exa
 **题目元组**  
 每道题是一个内容序列。一个空位是一个二元组：`(答案内容, 宽度)`，其中宽度可以是 `3cm`、`4em` 等。其他部分均为字符串或内容块。
 
-**全局参数**  
+**全局参数**
+
 - `spacing` – 题目之间额外的垂直间距。
 - `leading` – 题目内部段落行距。
 - 同样支持 `show-answer`、`answer-color`、`only-show-answer`、`continue-number` 等。
@@ -431,3 +432,4 @@ For complete examples of how all these elements work together, see `template/exa
 ---
 
 关于所有这些元素如何一起工作的完整示例，请参阅仓库中的 `template/exam.typ` 文件。编译该文件可以查看每个参数组合的实际视觉效果。
+

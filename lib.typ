@@ -33,6 +33,7 @@
   title-font-size: 1.5em,
   choice-question-breakable: true,
   student-info: ("学院", "专业班级", "姓名", "学号"),
+  show-seal-line: true,
 ) = {
   if seed < 0 {
     seed = if type == "" { 1 } else { type.codepoints().map(c => str.to-unicode(c)).sum() }
@@ -59,6 +60,7 @@
       frame-stroke: frame-stroke,
       font-size: font-size,
       mono-font-size: mono-font-size,
+      show-seal-line: show-seal-line,
       show-answer: show-answer,
       mono-font: mono-font,
       double-page: double-page,

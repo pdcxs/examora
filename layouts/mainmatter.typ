@@ -19,6 +19,7 @@
   frame-stroke: (0.4pt + black),
   student-info: ("班级", "姓名", "学号"),
   only-show-answer: false,
+  show-seal-line: true,
   ..args,
   it,
 ) = {
@@ -44,7 +45,7 @@
 
   set page(
     header: context {
-      if calc.odd(counter(page).get().last()) or not double-page {
+      if (calc.odd(counter(page).get().last()) or not double-page) and show-seal-line {
         place(
           dy: page.height,
           dx: -margin.inside + 0.5em,
